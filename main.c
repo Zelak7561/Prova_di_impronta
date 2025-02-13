@@ -87,7 +87,7 @@ void distmin(Punto punti[], int dim) {
                 dist_min = dist;
             }
         }
-        printf("[%d] [%d] [%1.1f]\n" , p1 , p2 , dist_min);
+        printf("P1[%d] P2[%d]\nDistanza[%1.1f]\n" , p1 , p2 , dist_min);
     } else {
         printf("Sono neccesari 2 punti per il calcolo della distanza minima!!\n");
     }
