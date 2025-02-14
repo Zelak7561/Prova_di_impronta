@@ -8,8 +8,6 @@ determina  e  restituisce  come  parametro  di  output  il  secondo più  grande
 int secondoMax(int array[], int dim);
 
 
-
-
 /*
 TRACCIA 2
 Sviluppare una function C che, dato come parametro di input un array di tipo struct punto double x; double y;
@@ -26,8 +24,6 @@ typedef struct {
 void distmin(PuntoMin punti[], int dim);
 
 
-
-
 /*
 TRACCIA 3
 Sviluppare una function C che, dato come parametro di input un array di tipo struct puntodouble x; double y;
@@ -35,6 +31,7 @@ Sviluppare una function C che, dato come parametro di input un array di tipo str
 I  campi xe ycontengono  l’ascissa  e l’ordinata, rispettivamente, di un punto
  */
 #include <math.h>
+
 typedef struct {
     double x;
     double y;
@@ -43,24 +40,92 @@ typedef struct {
 void distmax(PuntoMax punti[], int dim);
 
 
-
 /*
-TRACCIA4
+TRACCIA 4
 Sviluppare una function C che, dati come parametri di input un array2D di double, il numero delle righe e il numero delle colonne,
 determina e restituisce come parametro di output il massimo tra le somme degli elementi di ogni colonna.
  */
-double somm_colonne(double array[][3] , int colonne , int righe);
+double somm_colonne(double array[][3], int colonne, int righe);
 
 
+/*
+TRACCIA 5
+Sviluppare  una  function  C  che,
+dati  come  parametri  di  input  un array 2D  di int,  il numerodelle righe e il numero delle colonne,
+determina e restituisce come parametro di output il massimo tra le somme degli elementi di ogni riga.
+ */
+double somm_riga(double array[][3], int colonne, int righe);
 
+
+/*
+TRACCIA 6
+Scrivere  una  funzione  che  dati  in  input  due array ordinati(rispetto  al  campo matricola)
+di elementi della seguente struttura struct studente {char *nome; char *cognome; int matricola;};
+restituisca in output l’array fusione dei due array. La fusione deve avvenire in base alcampo matricola
+ */
+struct Studente {
+    char *nome;
+    char *cognome;
+    int matricola;
+};
+
+void fusione_studenti(struct Studente array1[], int dim1, struct Studente array2[], int dim2,
+                      struct Studente array_fuso[]);
+
+
+/*
+TRACCIA 7
+Scrivere una funzione che dati in input due array di strutture del seguente tipo struct prodotto {char *nome; int codice; double prezzo;};
+restituisce in output 1 se i due array di struct sono uguali, 0 se non lo sono.
+Si noti che due dati struct sono uguali se sono uguali tutti i loro campi
+ */
+typedef struct {
+    char *nome;
+    int codice;
+    double prezzo;
+} prodotto;
+
+int controllo_due_array_prodotto(prodotto prodotto1[], int dim1, prodotto prodotto2[], int dim2);
+
+
+/*
+TRACCIA 8
+Sviluppare una function C che,
+data come parametro di input una stringa che rappresenta un testo in italiano,
+determina e restituisce come parametro di output il numero di parole di tre lettere contenute nel testo.
+Nel testo le parole sono separate da un unico spazio.
+ */
+#include <string.h>
+
+int calcola_parole_tre_lettere(char *stringa);
+
+
+/*
+TRACCIA 9
+Sviluppare  una  function  C  che, data  come  parametro  di  input  una  stringa  che rappresentaun  testo  in  italiano,
+determina e  restituisce  come  parametro  di  output  il numero  di  parole che terminano  in are contenute nel testo.
+Nel  testo  le  parole  sono separate da un unico spazio.
+ */
+#include <string.h>
+
+int calcola_parole_are(char *stringa);
+
+/*
+TRACCIA 10
+Sviluppare  una  function  C  che,
+data  come  parametro  di input  una  stringa  che rappresentaun  testo  in  italiano,
+determina  e  restituisce  come  parametro  di  output  il numero di paroleche iniziano con a e terminano con e contenute nel testo.
+Nel testo le parole sono separateda un unico spazio.
+ */
+int calcola_parole_inizioA_fineE(char *stringa);
 
 
 int main(void) {
     //Traccia 1
-    int arraySecondoMax[] = {2 ,3 ,4 ,5};
-    int c = secondoMax(arraySecondoMax , 3);
+    int arraySecondoMax[] = {2, 3, 4, 5};
+    int c = secondoMax(arraySecondoMax, 3);
     printf("--TRACCIA 1--\n");
-    printf("Il secondo numero piu grande e %d\n" , c);
+    printf("Il secondo numero piu grande e %d\n", c);
 
     printf("\n");
 
@@ -73,7 +138,7 @@ int main(void) {
         {5.0, 6.0},
         {7.5, 8.5}
     };
-    distmin(puntiMin , 4);
+    distmin(puntiMin, 4);
 
     printf("\n");
 
@@ -87,25 +152,105 @@ int main(void) {
     };
     distmax(puntiMax, 4);
 
+    printf("\n");
 
     //Traccia 4
     printf("--TRACCIA 4--\n");
-    double array[3][3] = {
+    double arraySommCol[3][3] = {
         {1.1, 2.2, 3.3},
         {4.4, 5.5, 6.6},
         {7.7, 8.8, 9.9}
     };
-    double r = somm_colonne(array , 3 , 3);
-    // printf("Somma colonne [%2.2f]\n" , r);
+    double r_colonna = somm_colonne(arraySommCol, 3, 3);
+    printf("Somma colonne massima [%2.2f]\n", r_colonna);
 
+    printf("\n");
+
+    //Traccia 5
+    printf("--TRACCIA 5--\n");
+    double arraySommRiga[3][3] = {
+        {1.1, 2.2, 3.3},
+        {4.4, 5.5, 6.6},
+        {7.7, 8.8, 9.9}
+    };
+    double r_riga = somm_riga(arraySommRiga, 3, 3);
+    printf("Somma riga massima [%2.2f]\n", r_riga);
+
+    printf("\n");
+
+    //Traccia 6
+    printf("--TRACCIA 6--\n");
+
+    struct Studente array1Studenti[] = {
+        {"Mario", "Rossi", 1001},
+        {"Luca", "Bianchi", 1002},
+        {"Giulia", "Verdi", 1003}
+    };
+
+    struct Studente array2Studenti[] = {
+        {"Anna", "Neri", 2001},
+        {"Paolo", "Gialli", 2002},
+        {"Elena", "Blu", 2003}
+    };
+
+    struct Studente array3FusoStudenti[6] = {};
+
+    fusione_studenti(array1Studenti, 3, array2Studenti, 3, array3FusoStudenti);
+
+    for (int i = 0; i < 6; i++) {
+        printf("Nome [%s]\n", array3FusoStudenti[i].nome);
+        printf("Cognome [%s]\n", array3FusoStudenti[i].cognome);
+        printf("Matricola [%d]\n", array3FusoStudenti[i].matricola);
+        printf("\n");
+    }
+
+
+    //Traccia 7
+    printf("--TRACCIA 7--\n");
+    prodotto prodotto1[] = {
+        {"Mela", 101, 0.99},
+        {"Banana", 102, 1.29},
+        {"Pera", 103, 1.49}
+    };
+
+    prodotto prodotto2[] = {
+        {"Arancia", 201, 1.19},
+        {"Fragola", 202, 2.49},
+        {"Ciliegia", 203, 3.59}
+    };
+
+    int r_controllo_prodotto = controllo_due_array_prodotto(prodotto1, 3, prodotto2, 3);
+    printf("Gli array sono [%d]\n", r_controllo_prodotto);
+
+    printf("\n");
+
+    //Traccia 8
+    printf("--TRACCIA 8--\n");
+    char stringa_tre_lettere[] = "tre rew wer qwr";
+    int r_controllo_parole_tre_lettere = calcola_parole_tre_lettere(stringa_tre_lettere);
+    printf("Le parole con tre lettere sono [%d]\n", r_controllo_parole_tre_lettere);
+
+    printf("\n");
+
+    //Traccia 9
+    printf("--TRACCIA 9--\n");
+    char stringa_are[] = "fare affermare orrore";
+    int r_controllo_parole_are = calcola_parole_are(stringa_are);
+    printf("Le parole con tre lettere sono [%d]\n", r_controllo_parole_are);
+
+    printf("\n");
+
+    //Traccia 10
+    printf("--TRACCIA 10--\n");
+    char stringa_inizioA_fineE[] = "fare affermare orrore";
+    int r_controllo_parole_inizioA_fineE = calcola_parole_inizioA_fineE(stringa_inizioA_fineE);
+    printf("Le parole che iniziano con a finiscono con e sono [%d]\n", r_controllo_parole_inizioA_fineE);
+
+    printf("\n");
 
 
     return 0;
 }
-
-
-
-
 
 
 /*
@@ -127,10 +272,6 @@ int secondoMax(int array[], int dim) {
 
     return secondoMax;
 }
-
-
-
-
 
 
 /*
@@ -167,13 +308,9 @@ void distmin(PuntoMin punti[], int dim) {
 }
 
 
-
-
-
-
 /*
 TRACCIA 3
-Sviluppare una function C che, dato come parametro di input un array di tipo struct puntodouble x; double y;
+Sviluppare una function C che, dato come parametro di input un array di tipo struct punto double x; double y;
 e il suo size, determina e restituisce come parametro di output  la massima  distanza  tra  i  punti.
 I  campi xe ycontengono  l’ascissa  e l’ordinata, rispettivamente, di un punto
  */
@@ -206,13 +343,12 @@ void distmax(PuntoMax punti[], int dim) {
 }
 
 /*
-TRACCIA4
+TRACCIA 4
 Sviluppare una function C che, dati come parametri di input un array2D di double, il numero delle righe e il numero delle colonne,
 determina e restituisce come parametro di output il massimo tra le somme degli elementi di ogni colonna.
  */
 //Traccia 4
-
-double somm_colonne(double array[][3] , int colonne , int righe) {
+double somm_colonne(double array[][3], int colonne, int righe) {
     double somm = 0.0;
     double max = 0;
     for (int i = 0; i < colonne; i++) {
@@ -225,17 +361,148 @@ double somm_colonne(double array[][3] , int colonne , int righe) {
         }
     }
 
-    printf("Somma colonne [%2.2f]\n" , max);
     return max;
 }
 
 
+/*
+TRACCIA 5
+Sviluppare  una  function  C  che,
+dati  come  parametri  di  input  un array 2D  di int,  il numerodelle righe e il numero delle colonne,
+determina e restituisce come parametro di output ilmassimotra le somme degli elementi di ogni riga.
+ */
+double somm_riga(double array[][3], int colonne, int righe) {
+    double somma = 0;
+    double max_riga = 0.0;
+    for (int i = 0; i < colonne; i++) {
+        for (int j = 0; j < righe; j++) {
+            somma += array[i][j];
+        }
+
+        if (somma > max_riga) {
+            max_riga = somma;
+            somma = 0.0;
+        }
+    }
+
+    return max_riga;
+}
 
 
+/*
+TRACCIA 6
+Scrivere  una  funzione  che  dati  in  input  due array ordinati(rispetto  al  campo matricola)
+di elementi della seguente struttura struct studente {char *nome; char *cognome; int matricola;};
+restituisca in output l’array fusione dei due array. La fusione deve avvenire in base alcampo matricola
+ */
+
+//NOTA BENE NELLE TRACCE SU MGEA struct non c'e SCRITTO INTENDO
+void fusione_studenti(struct Studente array1[], int dim1, struct Studente array2[], int dim2,
+                      struct Studente array_fuso[]) {
+    int i_A = 0;
+    int i_B = 0;
+    int i_C = 0;
+
+    while (i_A < dim1 && i_B < dim2) {
+        if (array1[i_A].matricola < array2[i_B].matricola) {
+            array_fuso[i_C] = array1[i_A];
+            i_A++;
+        } else {
+            array_fuso[i_C] = array2[i_B];
+            i_B++;
+        }
+        i_C++;
+    }
+
+    while (i_A < dim1) {
+        array_fuso[i_C] = array1[i_A];
+        i_C++;
+        i_A++;
+    }
+
+    while (i_B < dim2) {
+        array_fuso[i_C] = array2[i_B];
+        i_C++;
+        i_B++;
+    }
+}
 
 
+/*
+TRACCIA 7
+Scrivere una funzione che dati in input due array di strutture del seguente tipo struct prodotto {char *nome; int codice; double prezzo;};
+restituisce in output 1 se i due array di struct sono uguali, 0 se non lo sono.
+Si noti che due dati struct sono uguali se sono uguali tutti i loro campi
+ */
+int controllo_due_array_prodotto(prodotto prodotto1[], int dim1, prodotto prodotto2[], int dim2) {
+    for (int i = 0; i < dim1; i++) {
+        for (int j = 0; j < dim2; j++) {
+            if (prodotto1[i].codice == prodotto2[j].codice && strcmp(prodotto1[i].nome, prodotto2[j].nome) == 0 &&
+                prodotto1[i].prezzo == prodotto2[j].prezzo) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
 
 
+/*
+TRACCIA 8
+Sviluppare una function C che,
+data come parametro di input una stringa che rappresentaun testo in italiano,
+determina e restituisce come parametro di output il numero di parole di tre lettere contenute nel testo.
+Nel testo le parole sono separate da un unico spazio.
+ */
+int calcola_parole_tre_lettere(char *stringa) {
+    char *tmp = strtok(stringa, " ");
+    int cont = 0;
+    while (tmp != NULL) {
+        if (strlen(tmp) == 3) {
+            cont++;
+        }
+        tmp = strtok(NULL, " ");
+    }
 
+    return cont;
+}
 
+/*
+TRACCIA 9
+Sviluppare  una  function  C  che, data  come  parametro  di  input  una  stringa  che rappresentaun  testo  in  italiano,
+determina e  restituisce  come  parametro  di  output  il numero  di  parole che terminano  in are contenute nel testo.
+Nel  testo  le  parole  sono separate da un unico spazio.
+ */
+int calcola_parole_are(char *stringa) {
+    char *tmp = strtok(stringa, " ");
+    int cont = 0;
+    while (tmp != NULL) {
+        if (strlen(tmp) >= 3) {
+            if (!strcmp(&tmp[strlen(tmp) - 3], "are")) cont++;
+        }
+        tmp = strtok(NULL, " ");
+    }
+    return cont;
+}
 
+/*
+TRACCIA 10
+Sviluppare  una  function  C  che,
+data  come  parametro  di input  una  stringa  che rappresentaun  testo  in  italiano,
+determina  e  restituisce  come  parametro  di  output  il numero di parole che iniziano con a e terminano con e contenute nel testo.
+Nel testo le parole sono separateda un unico spazio.
+ */
+int calcola_parole_inizioA_fineE(char *stringa) {
+    char *tmp = strtok(stringa, " ");
+    int cont = 0;
+    while (tmp != NULL) {
+        if (tmp > 0) {
+            if (tmp[0] == 'a' && (tmp[strlen(tmp - 1)], 'e')) {
+                cont++;
+            }
+        }
+        tmp = strtok(NULL, " ");
+    }
+
+    return cont;
+}
