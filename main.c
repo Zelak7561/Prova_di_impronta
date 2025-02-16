@@ -120,6 +120,34 @@ Nel testo le parole sono separateda un unico spazio.
 int calcola_parole_inizioA_fineE(char *stringa);
 
 
+/*
+TRACCIA 11
+Sviluppare  una  function  C  che,
+data  come  parametro  di  input  una  stringa  che rappresenta un  testo  in  italiano,
+determina  e  restituisce  come parametro di output il numero delle parole  contenute  nel  testo
+che  hanno  almeno 5 vocali.
+Nel  testo  le parole sono separateda un unico spazio.
+ */
+int controllo_vocale_parole_testo(char *stringa);
+
+
+
+/*TRACCIA 12
+Sviluppare una function C che,
+data come parametro di input una stringa che rappresenta un testo in italiano,
+determina e restituisce come parametri di output la parola di lunghezza massima contenuta nel testo e la sua lunghezza.
+Nel testo le parole sono separate da un unico spazio. */
+void controllo_parola_lunghezza_massima(char *stringa);
+
+
+/*TRACCIA 13
+Sviluppare una function C che, data come parametro di input una stringa che
+rappresenta un testo in italiano, determina e restituisce come parametri di output la parola di lunghezza minima contenuta nel testo e la sua lunghezza.
+Nel testo le parole sono separate da un unico spazio. */
+void controllo_parola_lunghezza_minima(char *stringa);
+
+
+
 int main(void) {
     //Traccia 1
     int arraySecondoMax[] = {2, 3, 4, 5};
@@ -248,6 +276,22 @@ int main(void) {
 
     printf("\n");
 
+
+    //Traccia 11
+    printf("--TRACCIA 11--\n");
+    char stringa_vocali_parole[] = "aeiou affermare aeiou";
+    int r_controllo_parole_vocali = controllo_vocale_parole_testo(stringa_vocali_parole);
+    printf("Le parole che hanno almeno 5 vocali sono [%d]\n", r_controllo_parole_vocali);
+
+    printf("\n");
+
+
+    //Traccia 12
+    printf("--TRACCIA 12--\n");
+    char stringa_lunghezza_massima[] = "aeiou affermare aeiou";
+    controllo_parola_lunghezza_massima(stringa_lunghezza_massima);
+
+    printf("\n");
 
     return 0;
 }
@@ -506,3 +550,62 @@ int calcola_parole_inizioA_fineE(char *stringa) {
 
     return cont;
 }
+
+/*
+TRACCIA11S
+viluppare  una  function  C  che,
+data  come  parametro  di  input  una  stringa  che rappresenta un  testo  in  italiano,
+determina  e  restituisce  come parametro di output il numero delle parole  contenute  nel  testo
+che  hanno  almeno 5 vocali.
+Nel  testo  le parole sono separateda un unico spazio.
+ */
+int controllo_vocale_parole_testo(char *stringa) {
+    char *tmp = strtok(stringa, " ");
+    int contParoleVocali = 0;
+    int contParole = 0;
+    while (tmp != NULL) {
+
+        for (int i = 0; i < strlen(tmp) ; i++) {
+            if (tmp[i] == 'a' || tmp[i] == 'e' || tmp[i] == 'i' || tmp[i] == 'o' || tmp[i] == 'u') {
+                contParoleVocali++;
+            }
+        }
+
+        if (contParoleVocali >= 5) {
+            contParole++;
+        }
+
+        tmp = strtok(NULL, "");
+    }
+
+    return contParole;
+}
+
+
+/*TRACCIA 12
+Sviluppare una function C che,
+data come parametro di input una stringa che rappresenta un testo in italiano,
+determina e restituisce come parametri di output la parola di lunghezza massima contenuta nel testo e la sua lunghezza.
+Nel testo le parole sono separate da un unico spazio. */
+void controllo_parola_lunghezza_massima(char *stringa) {
+    char *tmp = strtok(stringa , " ");
+    int lunghezzaMax = 0;
+    char maxParola[100] = " ";
+
+    while (tmp != NULL) {
+        if (strlen(tmp) > lunghezzaMax) {
+            lunghezzaMax = (int) strlen(tmp);
+            strcpy(maxParola, tmp);
+        }
+
+        tmp = strtok(NULL, " ");
+    }
+
+    printf("La parola massima e %s lunghezza %d\n" , maxParola , lunghezzaMax);
+}
+
+
+
+
+
+
