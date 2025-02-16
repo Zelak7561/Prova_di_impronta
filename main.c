@@ -110,6 +110,7 @@ Nel  testo  le  parole  sono separate da un unico spazio.
 
 int calcola_parole_are(char *stringa);
 
+
 /*
 TRACCIA 10
 Sviluppare  una  function  C  che,
@@ -131,7 +132,6 @@ Nel  testo  le parole sono separateda un unico spazio.
 int controllo_vocale_parole_testo(char *stringa);
 
 
-
 /*TRACCIA 12
 Sviluppare una function C che,
 data come parametro di input una stringa che rappresenta un testo in italiano,
@@ -145,6 +145,20 @@ Sviluppare una function C che, data come parametro di input una stringa che
 rappresenta un testo in italiano, determina e restituisce come parametri di output la parola di lunghezza minima contenuta nel testo e la sua lunghezza.
 Nel testo le parole sono separate da un unico spazio. */
 void controllo_parola_lunghezza_minima(char *stringa);
+
+/*
+ TRACCIA 14
+ Sviluppare una function C che, data come parametro di input una stringa che rappresenta un testo in italiano,
+ determina e restituisce come parametri di output la parola di lunghezza minima contenuta nel testo e la posizione di inizio della parola nella stringa.
+ Nel testo le parole sono separate da un unico spazio. */
+int controllo_parola_lunghezza_minima_posizione(char *stringa);
+
+/*TRACCIA 15
+ Sviluppare una function C che, dati come parametri di input un array di char e il suo size,
+ determina e restituisce come parametro di output l�array
+ (di size 21) del numero delle occorrenze delle 21 lettere dell'alfabeto italiano
+ (per es. il numero di occorrenze della lettera a � il numero di volte in cui la lettera a compare nel testo). */
+void controllo_occorrenze_alfabeto(char *stringa);
 
 
 
@@ -293,9 +307,32 @@ int main(void) {
 
     printf("\n");
 
+    //Traccia 13
+    printf("--TRACCIA 13--\n");
+    char stringa_lunghezza_minima[] = "aeiou affermare aei";
+    controllo_parola_lunghezza_minima(stringa_lunghezza_minima);
+
+    printf("\n");
+
+    //Traccia 14
+    printf("--TRACCIA 14--\n");
+    char stringa_lunghezza_minima_posizione[] = "marioz ao e";
+    int r_controllo_parola_minima_posizione = controllo_parola_lunghezza_minima_posizione(
+        stringa_lunghezza_minima_posizione);
+    printf("La parola minima si trova in posizione [%d]\n", r_controllo_parola_minima_posizione);
+
+    printf("\n");
+
+
+    //Traccia 15
+    printf("--TRACCIA 15--\n");
+    char stringa_lunghezza_occorrenze[] = "mariozaoe";
+    controllo_occorrenze_alfabeto(stringa_lunghezza_occorrenze);
+    printf("\n");
+
+
     return 0;
 }
-
 
 /*
 TRACCIA 1
@@ -552,8 +589,8 @@ int calcola_parole_inizioA_fineE(char *stringa) {
 }
 
 /*
-TRACCIA11S
-viluppare  una  function  C  che,
+TRACCIA11
+Sviluppare  una  function  C  che,
 data  come  parametro  di  input  una  stringa  che rappresenta un  testo  in  italiano,
 determina  e  restituisce  come parametro di output il numero delle parole  contenute  nel  testo
 che  hanno  almeno 5 vocali.
@@ -564,8 +601,7 @@ int controllo_vocale_parole_testo(char *stringa) {
     int contParoleVocali = 0;
     int contParole = 0;
     while (tmp != NULL) {
-
-        for (int i = 0; i < strlen(tmp) ; i++) {
+        for (int i = 0; i < strlen(tmp); i++) {
             if (tmp[i] == 'a' || tmp[i] == 'e' || tmp[i] == 'i' || tmp[i] == 'o' || tmp[i] == 'u') {
                 contParoleVocali++;
             }
@@ -588,7 +624,7 @@ data come parametro di input una stringa che rappresenta un testo in italiano,
 determina e restituisce come parametri di output la parola di lunghezza massima contenuta nel testo e la sua lunghezza.
 Nel testo le parole sono separate da un unico spazio. */
 void controllo_parola_lunghezza_massima(char *stringa) {
-    char *tmp = strtok(stringa , " ");
+    char *tmp = strtok(stringa, " ");
     int lunghezzaMax = 0;
     char maxParola[100] = " ";
 
@@ -601,11 +637,72 @@ void controllo_parola_lunghezza_massima(char *stringa) {
         tmp = strtok(NULL, " ");
     }
 
-    printf("La parola massima e %s lunghezza %d\n" , maxParola , lunghezzaMax);
+    printf("La parola massima e %s lunghezza %d\n", maxParola, lunghezzaMax);
+}
+
+/*TRACCIA 13
+Sviluppare una function C che, data come parametro di input una stringa che
+rappresenta un testo in italiano, determina e restituisce come parametri di output la parola di lunghezza minima contenuta nel testo e la sua lunghezza.
+Nel testo le parole sono separate da un unico spazio. */
+void controllo_parola_lunghezza_minima(char *stringa) {
+    char *tmp = strtok(stringa, " ");
+    int lunghezzaMin = -1;
+    char parolaMin[100] = " ";
+
+    while (tmp != NULL) {
+        if (strlen(tmp) < lunghezzaMin) {
+            lunghezzaMin = strlen(tmp);
+            strcpy(parolaMin, tmp);
+        }
+
+        tmp = strtok(NULL, " ");
+    }
+    printf("La parola massima e %s lunghezza %d\n", parolaMin, lunghezzaMin);
 }
 
 
+/*
+ TRACCIA 14
+ Sviluppare una function C che, data come parametro di input una stringa che rappresenta un testo in italiano,
+ determina e restituisce come parametri di output la parola di lunghezza minima contenuta nel testo e la posizione di inizio della parola nella stringa.
+ Nel testo le parole sono separate da un unico spazio. */
+int controllo_parola_lunghezza_minima_posizione(char *stringa) {
+    char *tmp = strtok(stringa, " ");
+    int lunghezzaMin = -1;
+    int posizioneParolaMin = 0;
+    int cont = 0;
+    char ParolaMin[100] = " ";
+
+    while (tmp != NULL) {
+        cont++;
+        if (strlen(tmp) < lunghezzaMin) {
+            lunghezzaMin = strlen(tmp);
+            strcpy(ParolaMin, tmp);
+            posizioneParolaMin = cont;
+        }
+        tmp = strtok(NULL, " ");
+    }
+
+    return posizioneParolaMin;
+}
 
 
+/*TRACCIA 15
+ Sviluppare una function C che, dati come parametri di input un array di char e il suo size,
+ determina e restituisce come parametro di output l�array
+ (di size 21) del numero delle occorrenze delle 21 lettere dell'alfabeto italiano
+ (per es. il numero di occorrenze della lettera a � il numero di volte in cui la lettera a compare nel testo). */
+void controllo_occorrenze_alfabeto(char *stringa) {
+    char alfabeto[] = {'a','b','c','d','e','f','g','h','i','l','m','n','o','p','q','r','s','t','u','v','z'};
+    int occorrenze[21] = {};
 
+    for (int i = 0; i < strlen(stringa); i++) {
+        for (int j = 0; j < strlen(alfabeto); j++) {
+            if (stringa[i] == alfabeto[j] ) {
+                occorrenze[j]++;
+            }
+        }
+    }
 
+    for(int i = 0; i < 21; i++)  printf("%c = %d\n", alfabeto[i], occorrenze[i]);
+}
