@@ -161,6 +161,13 @@ int controllo_parola_lunghezza_minima_posizione(char *stringa);
 void controllo_occorrenze_alfabeto(char *stringa);
 
 
+/*TRACCIA 16
+Sviluppare una function C che, dati come parametri di input un array di char e il suo size, determina e restituisce come parametro di output l'array occorrenze (di size 21)
+del numero delle occorrenze dell'evento a precede ognuna delle 21 lettere dell'alfabeto italiano (cio�occorrenze[0] � il numero di volte in cui accade che �a precede a�,
+cio� che nel testo compare aa, occorrenze[1] � il numero di volte     in cui accade che �a precede b�, cio� che nel testo compare ab, occorrenze[2] � il numero di volte in cui
+accade che a precede c, cio� che nel testo compare ac, �). */
+void controllo_occorrenze_alfabeto_ab_ac_ecc(char *stringa);
+
 
 int main(void) {
     //Traccia 1
@@ -320,15 +327,23 @@ int main(void) {
     int r_controllo_parola_minima_posizione = controllo_parola_lunghezza_minima_posizione(
         stringa_lunghezza_minima_posizione);
     printf("La parola minima si trova in posizione [%d]\n", r_controllo_parola_minima_posizione);
-
     printf("\n");
 
 
     //Traccia 15
     printf("--TRACCIA 15--\n");
-    char stringa_lunghezza_occorrenze[] = "mariozaoe";
+    char stringa_lunghezza_occorrenze[] = "mariozaoeaz";
     controllo_occorrenze_alfabeto(stringa_lunghezza_occorrenze);
     printf("\n");
+
+
+    //Traccia 16
+    printf("--TRACCIA 16--\n");
+    char controllo_occorrenze_alfabeto_ab_ac_ecc_array[] = "mariozaoeaz";
+    controllo_occorrenze_alfabeto_ab_ac_ecc(controllo_occorrenze_alfabeto_ab_ac_ecc_array);
+    printf("\n");
+
+
 
 
     return 0;
@@ -693,16 +708,50 @@ int controllo_parola_lunghezza_minima_posizione(char *stringa) {
  (di size 21) del numero delle occorrenze delle 21 lettere dell'alfabeto italiano
  (per es. il numero di occorrenze della lettera a � il numero di volte in cui la lettera a compare nel testo). */
 void controllo_occorrenze_alfabeto(char *stringa) {
-    char alfabeto[] = {'a','b','c','d','e','f','g','h','i','l','m','n','o','p','q','r','s','t','u','v','z'};
+    char alfabeto[] = {
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'z'
+    };
     int occorrenze[21] = {};
 
     for (int i = 0; i < strlen(stringa); i++) {
         for (int j = 0; j < strlen(alfabeto); j++) {
-            if (stringa[i] == alfabeto[j] ) {
+            if (stringa[i] == alfabeto[j]) {
                 occorrenze[j]++;
             }
         }
     }
 
-    for(int i = 0; i < 21; i++)  printf("%c = %d\n", alfabeto[i], occorrenze[i]);
+    for (int i = 0; i < 21; i++) printf("%c = %d\n", alfabeto[i], occorrenze[i]);
 }
+
+
+/*TRACCIA 16
+Sviluppare una function C che, dati come parametri di input un array di char e il suo size, determina e restituisce come parametro di output l'array occorrenze (di size 21)
+del numero delle occorrenze dell'evento a precede ognuna delle 21 lettere dell'alfabeto italiano (cio�occorrenze[0] � il numero di volte in cui accade che �a precede a�,
+cio� che nel testo compare aa, occorrenze[1] � il numero di volte     in cui accade che �a precede b�, cio� che nel testo compare ab, occorrenze[2] � il numero di volte in cui
+accade che a precede c, cio� che nel testo compare ac, �). */
+void controllo_occorrenze_alfabeto_ab_ac_ecc(char *stringa) {
+    char alfabeto[] = {
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'z'
+    };
+    int occorrenze[21] = {};
+
+    for (int i = 0; i < strlen(stringa) ; i++) {
+        for (int j = 0; j < strlen(alfabeto); j++) {
+            int i_successiva = i + 1;
+            if (stringa[i] == 'a' && stringa[i_successiva] == alfabeto[j]) {
+                occorrenze[j]++;
+            }
+        }
+    }
+
+    for (int i = 0; i < 21; i++) printf("\na%c = %d\n", alfabeto[i], occorrenze[i]);
+}
+
+
+
+
+
+
+
+
