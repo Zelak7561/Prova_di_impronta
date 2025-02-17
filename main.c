@@ -475,18 +475,18 @@ determina e restituisce come parametro di output il massimo tra le somme degli e
 //Traccia 4
 double somm_colonne(double array[][3], int colonne, int righe) {
     double somm = 0.0;
-    double max = 0;
+    double max_col = 0;
     for (int i = 0; i < colonne; i++) {
         for (int j = 0; j < righe; j++) {
             somm += array[j][i];
         }
-        if (somm > max) {
-            max = somm;
+        if (somm > max_col) {
+            max_col = somm;
             somm = 0.0;
         }
     }
 
-    return max;
+    return max_col;
 }
 
 
