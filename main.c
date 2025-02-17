@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 
 /*
@@ -167,6 +168,22 @@ del numero delle occorrenze dell'evento a precede ognuna delle 21 lettere dell'a
 cio� che nel testo compare aa, occorrenze[1] � il numero di volte     in cui accade che �a precede b�, cio� che nel testo compare ab, occorrenze[2] � il numero di volte in cui
 accade che a precede c, cio� che nel testo compare ac, �). */
 void controllo_occorrenze_alfabeto_ab_ac_ecc(char *stringa);
+
+
+/*
+TRACCIA 17
+Sviluppare una function C che, dati come parametri di input un array di char e il suo size,
+determina e  restituisce  come  parametro  di  un  dato  logico  che  indica  se  il
+testo nell’arrayèun pangramma, ovvero èun testo che contiene, almeno una volta, tutte
+le 21 letteredell’alfabeto italiano.
+ */
+void controllo_pangramma(char *stringa, int dim);
+
+
+/*TRACCIA 18
+ Sviluppare una function C che, dati come parametri di input un array di char e il suo size,
+ determina e restituisce come parametro di output il carattere più frequente. */
+char controllo_carattere_piu_frequente(char *stringa, int dim);
 
 
 int main(void) {
@@ -344,6 +361,18 @@ int main(void) {
     printf("\n");
 
 
+    //Traccia 17
+    printf("--TRACCIA 17--\n");
+    char controllo_pangramma_str[] = "Qui gli ampi stronzi, bove, defechi?";
+    controllo_pangramma(controllo_pangramma_str, 100);
+    printf("\n");
+
+
+    //Traccia 18
+    printf("--TRACCIA 18--\n");
+    char controllo_carattere_piu_frequente_str[] = "Qualche vago ione tipo zolfo, bromo, sodio";
+    controllo_carattere_piu_frequente(controllo_carattere_piu_frequente_str, 100);
+    printf("\n");
 
 
     return 0;
@@ -736,7 +765,7 @@ void controllo_occorrenze_alfabeto_ab_ac_ecc(char *stringa) {
     };
     int occorrenze[21] = {};
 
-    for (int i = 0; i < strlen(stringa) ; i++) {
+    for (int i = 0; i < strlen(stringa); i++) {
         for (int j = 0; j < strlen(alfabeto); j++) {
             int i_successiva = i + 1;
             if (stringa[i] == 'a' && stringa[i_successiva] == alfabeto[j]) {
@@ -745,13 +774,73 @@ void controllo_occorrenze_alfabeto_ab_ac_ecc(char *stringa) {
         }
     }
 
-    for (int i = 0; i < 21; i++) printf("\na%c = %d\n", alfabeto[i], occorrenze[i]);
+    for (int i = 0; i < 21; i++) printf("a%c = %d\n", alfabeto[i], occorrenze[i]);
 }
 
 
+/*
+TRACCIA 17
+Sviluppare una function C che, dati come parametri di input un array di char e il suo size,
+determina e restituisce come parametro di un dato logico che indica se il
+testo nell’arrayèun pangramma, ovvero è un testo che contiene, almeno una volta, tutte
+le 21 lettere dell’alfabeto italiano.
+ */
+void controllo_pangramma(char *stringa, int dim) {
+    char alfabeto[] = {
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'z'
+    };
+
+    strlwr(stringa);
+
+    int occorrenze[21] = {0};
+    int contLettere = 0;
+
+    for (int i = 0; i < dim; i++) {
+        for (int j = 0; j < 21; j++) {
+            if (stringa[i] == alfabeto[j]) {
+                if (occorrenze[j] == 0) {
+                    occorrenze[j] = 1;
+                    contLettere++;
+                }
+            }
+        }
+    }
+
+    if (contLettere == 21) {
+        printf("La stringa e pangramma -> [%s]\n", stringa);
+    } else {
+        printf("La stringa non e pangramma\n");
+    }
+}
 
 
+/*TRACCIA 18
+ Sviluppare una function C che, dati come parametri di input un array di char e il suo size,
+ determina e restituisce come parametro di output il carattere più frequente. */
+char controllo_carattere_piu_frequente(char *stringa, int dim) {
+    char alfabeto[] = {
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'z'
+    };
 
+    strlwr(stringa);
 
+    int occorrenze[21] = {0};
+    int max_i = -1;
+    char max_c = ' ';
+    for (int i = 0; i < dim; i++) {
+        for (int j = 0; j < 21; j++) {
+            if (stringa[i] == alfabeto[j]) {
+                occorrenze[j]++;
+                if (occorrenze[j] > max_i ) {
+                    max_i = occorrenze[j];
+                    max_c = alfabeto[j];
+                }
+            }
+        }
+    }
 
+    printf("Il carattere piu frequente [%c] , stringa [%s]\n", max_c ,stringa);
+
+    return max_c;
+}
 
