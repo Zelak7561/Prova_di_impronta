@@ -308,7 +308,7 @@ int main(void) {
 
     //Traccia 10
     printf("--TRACCIA 10--\n");
-    char stringa_inizioA_fineE[] = "fare affermare orrore";
+    char stringa_inizioA_fineE[] = "fare affermare errore";
     int r_controllo_parole_inizioA_fineE = calcola_parole_inizioA_fineE(stringa_inizioA_fineE);
     printf("Le parole che iniziano con a finiscono con e sono [%d]\n", r_controllo_parole_inizioA_fineE);
 
@@ -622,7 +622,7 @@ int calcola_parole_inizioA_fineE(char *stringa) {
     int cont = 0;
     while (tmp != NULL) {
         if (tmp > 0) {
-            if (tmp[0] == 'a' && (tmp[strlen(tmp - 1)], 'e')) {
+            if (tmp[0] == 'a' && tmp[strlen(tmp) - 1] == 'e') {
                 cont++;
             }
         }
@@ -633,7 +633,7 @@ int calcola_parole_inizioA_fineE(char *stringa) {
 }
 
 /*
-TRACCIA11
+TRACCIA 11
 Sviluppare  una  function  C  che,
 data  come  parametro  di  input  una  stringa  che rappresenta un  testo  in  italiano,
 determina  e  restituisce  come parametro di output il numero delle parole  contenute  nel  testo
