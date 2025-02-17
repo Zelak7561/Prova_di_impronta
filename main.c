@@ -348,7 +348,7 @@ int main(void) {
 
 
     //Traccia 15
-    printf("--TRACCIA 15--\n");
+    printf("--TRACCIA 15--\n") ;
     char stringa_lunghezza_occorrenze[] = "mariozaoeaz";
     controllo_occorrenze_alfabeto(stringa_lunghezza_occorrenze);
     printf("\n");
