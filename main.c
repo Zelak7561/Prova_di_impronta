@@ -603,7 +603,7 @@ int calcola_parole_are(char *stringa) {
     int cont = 0;
     while (tmp != NULL) {
         if (strlen(tmp) >= 3) {
-            if (!strcmp(&tmp[strlen(tmp) - 3], "are")) cont++;
+            if (strcmp(&tmp[strlen(tmp) - 3], "are") == 0) cont++;
         }
         tmp = strtok(NULL, " ");
     }
