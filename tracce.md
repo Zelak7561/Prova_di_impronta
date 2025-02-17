@@ -110,6 +110,4 @@ Due giocatori si sfidano lanciando un “dado truccato”. Il dado ha dei valori
 ### **TRACCIA 23**  
 Scrivere una funzione in C che, come input, riceve i dati che identificano uno studente (nome, cognome, matricola) e restituisce in output una struttura dati opportuna, che contiene i dati di identificazione e il libretto universitario con al massimo 20 esami. Ogni esame è caratterizzato da denominazione, cfu e voto.
 
----
 
-Spero che ora sia più leggibile!
