@@ -186,6 +186,39 @@ void controllo_pangramma(char *stringa, int dim);
 char controllo_carattere_piu_frequente(char *stringa, int dim);
 
 
+/*
+TRACCIA 19
+Sviluppare una function C che, dati come parametri di input un array di chare il suo size,
+determina e restituisce come parametro di output il caratteremeno frequente.
+ */
+char controllo_carattere_meno_frequente(char *stringa, int dim);
+
+
+/*
+TRACCIA 20
+Dato un elenco(array) di persone partecipanti a un concorso,
+ordinare l’elenco in ordine alfabetico in base al campo cognome.
+La struttura che identifica il partecipante è
+struct persona {char *nome; char *cognome;};
+typedef struct persona id;
+struct partecipante {id *utente; unsigned short codice; };
+ */
+
+struct persona {
+    char *nome;
+    char *cognome;
+};
+
+typedef struct persona id;
+
+struct partecipante {
+    id *utente;
+    unsigned short codice;
+};
+
+void ordina_utenti_concorso(struct partecipante utenti[], int dim);
+
+
 int main(void) {
     //Traccia 1
     int arraySecondoMax[] = {2, 3, 4, 5};
@@ -348,7 +381,7 @@ int main(void) {
 
 
     //Traccia 15
-    printf("--TRACCIA 15--\n") ;
+    printf("--TRACCIA 15--\n");
     char stringa_lunghezza_occorrenze[] = "mariozaoeaz";
     controllo_occorrenze_alfabeto(stringa_lunghezza_occorrenze);
     printf("\n");
@@ -372,6 +405,57 @@ int main(void) {
     printf("--TRACCIA 18--\n");
     char controllo_carattere_piu_frequente_str[] = "Qualche vago ione tipo zolfo, bromo, sodio";
     controllo_carattere_piu_frequente(controllo_carattere_piu_frequente_str, 100);
+    printf("\n");
+
+
+    //Traccia 19
+    printf("--TRACCIA 19--\n");
+    char controllo_carattere_meno_frequente_str[] = "aaaeer";
+    int l_e = strlen(controllo_carattere_meno_frequente_str);
+    controllo_carattere_meno_frequente(controllo_carattere_meno_frequente_str, l_e);
+    printf("\n");
+
+    //Traccia 20
+    printf("--TRACCIA 20--\n");
+    id utenti[10] = {
+        {"Mario", "Rossi"},
+        {"Luca", "Bianchi"},
+        {"Giulia", "Verdi"},
+        {"Anna", "Neri"},
+        {"Paolo", "Gialli"},
+        {"Sara", "Blu"},
+        {"Alessandro", "Viola"},
+        {"Marta", "Arancioni"},
+        {"Giovanni", "Grigi"},
+        {"Francesca", "Marroni"}
+    };
+
+    // Creazione di un array di 10 partecipanti (array partecipante)
+    struct partecipante partecipanti[10] = {
+        {&utenti[0], 64789},
+        {&utenti[1], 12345},
+        {&utenti[2], 23456},
+        {&utenti[3], 34567},
+        {&utenti[4], 45678},
+        {&utenti[5], 56789},
+        {&utenti[6], 67890},
+        {&utenti[7], 78901},
+        {&utenti[8], 89012},
+        {&utenti[9], 90123}
+    };
+
+
+    ordina_utenti_concorso(partecipanti, 10);
+
+
+    for (int i = 0; i < 10; i++) {
+        printf("Partecipante [%d]\n", i + 1);
+        printf("Nome [%s]\n", utenti[i].nome);
+        printf("Cognome [%s]\n", utenti[i].cognome);
+        printf("\n");
+    }
+
+
     printf("\n");
 
 
@@ -831,7 +915,7 @@ char controllo_carattere_piu_frequente(char *stringa, int dim) {
         for (int j = 0; j < 21; j++) {
             if (stringa[i] == alfabeto[j]) {
                 occorrenze[j]++;
-                if (occorrenze[j] > max_i ) {
+                if (occorrenze[j] > max_i) {
                     max_i = occorrenze[j];
                     max_c = alfabeto[j];
                 }
@@ -839,8 +923,68 @@ char controllo_carattere_piu_frequente(char *stringa, int dim) {
         }
     }
 
-    printf("Il carattere piu frequente [%c] , stringa [%s]\n", max_c ,stringa);
+    printf("Il carattere piu frequente [%c] , stringa [%s]\n", max_c, stringa);
 
     return max_c;
 }
 
+/*
+TRACCIA 19
+Sviluppare una function C che, dati come parametri di input un array di chare il suo size,
+determina e restituisce come parametro di output il caratteremeno frequente.
+ */
+char controllo_carattere_meno_frequente(char *stringa, int dim) {
+    strlwr(stringa);
+
+    int min_i = dim + 1;
+    char min_c = ' ';
+
+    char alfabeto[] = {
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'z'
+    };
+    int occorrenze[21] = {};
+
+    for (int i = 0; i < dim; i++) {
+        for (int j = 0; j < strlen(alfabeto); j++) {
+            if (stringa[i] == alfabeto[j]) {
+                occorrenze[j]++;
+                if (!occorrenze[j] < min_i) {
+                    min_i = occorrenze[j];
+                    min_c = alfabeto[j];
+                }
+            }
+        }
+    }
+
+    printf("Il carattere meno frequente [%c] , stringa [%s]\n", min_c, stringa);
+
+    return min_c;
+}
+
+
+/*
+TRACCIA 20
+Dato un elenco(array) di persone partecipanti a un concorso,
+ordinare l’elenco in ordine alfabetico in base al campo cognome.
+La struttura che identifica il partecipante è
+struct persona {char *nome; char *cognome;};
+typedef struct persona id;
+struct partecipante {id *utente; unsigned short codice;};
+ */
+
+void ordina_utenti_concorso(struct partecipante utenti[], int dim) {
+
+
+    for (int i = 0; i < dim - 1; i++) {
+        for (int j = 0; j < dim - i - 1; j++) {
+            printf("Confrontando: %s con %s\n", utenti[j].utente->cognome, utenti[j + 1].utente->cognome);
+            if (strcmp(utenti[j].utente->cognome, utenti[j + 1].utente->cognome) > 0) {
+                struct partecipante temp_utente = utenti[j];
+                utenti[j] = utenti[j + 1];
+                utenti[j + 1] = temp_utente;
+            }
+        }
+    }
+
+
+}
